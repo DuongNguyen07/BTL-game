@@ -1,4 +1,4 @@
-#ifndef FUNCTION_H_INCLUDED
+    #ifndef FUNCTION_H_INCLUDED
 #define FUNCTION_H_INCLUDED
 #include <iostream>
 #include <string>
@@ -9,9 +9,6 @@
 #include <SDL_ttf.h>
 using namespace std;
 
-const int SCREEN_WIDTH = 1200;
-const int SCREEN_HEIGHT = 640;
-const string WINDOW_TITLE = "Game vui moi ngay";
 
 void initSDL(SDL_Window* &window, SDL_Renderer* &renderer);
 void logSDLError(std::ostream& os,
@@ -19,18 +16,6 @@ void logSDLError(std::ostream& os,
 void quitSDL(SDL_Window* window, SDL_Renderer* renderer);
 void waitUntilKeyPressed();
 SDL_Texture* loadTexture (string path, SDL_Renderer* renderer);
-int main(int argc, char* argv[])
-{
-    SDL_Window* window;
-    SDL_Renderer* renderer;
-    initSDL(window, renderer);
-    SDL_Texture* background = loadTexture("abc.jpg", renderer);
-    SDL_RenderCopy( renderer, background, NULL, NULL);
-    SDL_RenderPresent(renderer);
-    waitUntilKeyPressed();
-    quitSDL(window, renderer);
-    return 0;
-}
 
 void logSDLError(std::ostream& os,
                  const std::string &msg, bool fatal)
