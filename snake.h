@@ -1,21 +1,27 @@
 #ifndef SNAKE_H
 #define SNAKE_H
-#include <queue>
-#include <position.h>
-using namespace std;
-class Game;
-struct SnakeDot{
- Position position;
- SnakeDot *next;
- SnakeDot(Position p, SnakeDot* _next = nullptr) : position(p), next(_next) {}
- };
 
- class Snake
- {
-     SnakeDot *head, *tail;
-     Game& game;
-     int cherry;
-     int score;
+#include <queue>
+#include <vector>
+#include "position.h"
+
+using namespace std;
+
+class Game;
+
+struct SnakeNode
+{
+    Position position;
+    SnakeNode *next;
+    SnakeNode(Position p, SnakeNode* _next = nullptr) : position(p), next(_next) {}
+};
+
+class Snake
+{
+    SnakeNode *head, *tail;
+    Game& game;
+    int cherry;
+    int score;
 public:
     Snake(Game& _game, Position start);
     ~Snake();
@@ -28,4 +34,5 @@ private:
     void slideTo(Position newPosition);
     void growAtFront(Position newPosition);
 };
+
 #endif // SNAKE_H

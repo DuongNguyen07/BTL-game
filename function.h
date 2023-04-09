@@ -1,48 +1,60 @@
-    #ifndef FUNCTION_H_INCLUDED
-#define FUNCTION_H_INCLUDED
+#ifndef SDL_UTILS__H_
+#define SDL_UTILS__H_
+
 #include <iostream>
-#include <string>
-#include <windows.h>
 #include <SDL.h>
 #include <SDL_image.h>
-#include <SDL_mixer.h>
-#include <SDL_ttf.h>
+
 using namespace std;
 
-
-void initSDL(SDL_Window* &window, SDL_Renderer* &renderer);
 void logSDLError(std::ostream& os,
                  const std::string &msg, bool fatal = false);
+void initSDL(SDL_Window* &window, SDL_Renderer* &renderer);
 void quitSDL(SDL_Window* window, SDL_Renderer* renderer);
 void waitUntilKeyPressed();
-SDL_Texture* loadTexture (string path, SDL_Renderer* renderer);
+SDL_Texture* loadTexture( string path, SDL_Renderer* renderer );
+
+SDL_Texture* loadTexture( string path, SDL_Renderer* renderer )
+{
+    SDL_Texture* newTexture = nullptr;
+    SDL_Surface* loadedSurface = IMG_Load( path.c_str() );
+    if ( loadedSurface == nullptr )
+        cout << "Unable to load image " << path << " SDL_image Error: "
+             << IMG_GetError() << endl;
+    else {
+        newTexture = SDL_CreateTextureFromSurface( renderer, loadedSurface );
+        if( newTexture == nullptr )
+            cout << "Unable to create texture from " << path << " SDL Error: "
+                 << SDL_GetError() << endl;
+        SDL_FreeSurface( loadedSurface );
+    }
+    return newTexture;
+}
 
 void logSDLError(std::ostream& os,
                  const std::string &msg, bool fatal)
 {
-    os << msg << "Error: " << SDL_GetError() << std::endl;
+    os << msg << " Error: " << SDL_GetError() << std::endl;
     if (fatal) {
         SDL_Quit();
         exit(1);
     }
 }
 
-void initSDL(SDL_Window* &window, SDL_Renderer* &renderer)
+void initSDL(SDL_Window* &window, SDL_Renderer* &renderer,
+             const char* WINDOW_TITLE, int SCREEN_WIDTH, int SCREEN_HEIGHT )
 {
     if (SDL_Init(SDL_INIT_EVERYTHING) != 0)
         logSDLError(std::cout, "SDL_Init", true);
 
-    window = SDL_CreateWindow(WINDOW_TITLE.c_str(), SDL_WINDOWPOS_CENTERED,
+    window = SDL_CreateWindow(WINDOW_TITLE, SDL_WINDOWPOS_CENTERED,
        SDL_WINDOWPOS_CENTERED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
     //window = SDL_CreateWindow(WINDOW_TITLE.c_str(), SDL_WINDOWPOS_CENTERED,
-    //   SDL_WINDOWPOS_CENTERED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_FULLSCREEN_DESKTOP);
+      // SDL_WINDOWPOS_CENTERED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_FULLSCREEN_DESKTOP);
     if (window == nullptr) logSDLError(std::cout, "CreateWindow", true);
 
-
-    //Khi chạy trong môi trường bình thường (không chạy trong máy ảo)
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED |
                                               SDL_RENDERER_PRESENTVSYNC);
-    //Khi chạy ở máy ảo (ví dụ tại máy tính trong phòng thực hành ở trường)
     //renderer = SDL_CreateSoftwareRenderer(SDL_GetWindowSurface(window));
 
     if (renderer == nullptr) logSDLError(std::cout, "CreateRenderer", true);
@@ -53,9 +65,9 @@ void initSDL(SDL_Window* &window, SDL_Renderer* &renderer)
 
 void quitSDL(SDL_Window* window, SDL_Renderer* renderer)
 {
-	SDL_DestroyRenderer(renderer);
-	SDL_DestroyWindow(window);
-	SDL_Quit();
+    SDL_DestroyRenderer(renderer);
+    SDL_DestroyWindow(window);
+    SDL_Quit();
 }
 
 void waitUntilKeyPressed()
@@ -68,20 +80,5 @@ void waitUntilKeyPressed()
         SDL_Delay(100);
     }
 }
-SDL_Texture* loadTexture (string path, SDL_Renderer* renderer)
-{
-    SDL_Texture* newTexture = nullptr;
-    SDL_Surface* loadedSurface = IMG_Load( path.c_str() );
-    if (loadedSurface == nullptr)
-        cout << "Unable to load image" << path << "SDL_image Error: " << IMG_GetError() << endl;
-    else {
-        newTexture = SDL_CreateTextureFromSurface( renderer, loadedSurface );
-        if (newTexture == nullptr)
-            cout << "Unable to create texture from" << path << "SDL Error: " << SDL_GetError() << endl;
-        SDL_FreeSurface(loadedSurface);
-    }
-    return newTexture;
-}
 
-
-#endif // FUNCTION_H_INCLUDED
+#endif // SDL_UTILS__H_

@@ -1,16 +1,20 @@
 #ifndef GAME_H
 #define GAME_H
-#include <position.h>
-#include <snake.h>
-enum Gamestatus {
- GAME_RUNNNING=1,
- GAME_STOP=2,
- GAME_WON=4 | GAME_STOP,
- GAME_OVER = 8 | GAME_STOP,
- };
- enum CellType{
-CELL_EMPTY=0, CELL_SNAKE, CELL_CHERRY, CELL_OFF_BOARD
+
+#include "snake.h"
+#include "position.h"
+
+enum GameStatus {
+    GAME_RUNNING = 1,
+    GAME_STOP = 2,
+    GAME_WON = 4 | GAME_STOP,
+    GAME_OVER = 8 | GAME_STOP,
 };
+
+enum CellType {
+    CELL_EMPTY = 0, CELL_SNAKE, CELL_CHERRY, CELL_OFF_BOARD
+};
+
 class Game
 {
     const int width;
@@ -54,4 +58,5 @@ public:
     void snakeMoveTo(Position position);
     void snakeLeave(Position position);
 };
-#endif // GAME_H
+
+#endif

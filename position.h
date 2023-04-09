@@ -1,30 +1,33 @@
 #ifndef POSITION_H
 #define POSITION_H
+
 enum Direction {
-UP=0, DOWN, LEFT, RIGHT
+    UP = 0, DOWN, LEFT, RIGHT
 };
 
-struct Position //Tao vi tri di chuyen
+struct Position
 {
-    int a, b;
-    Position(int a_ = 0, int b_ = 0) : a(a_), a(a_) {}
+    int x;
+    int y;
 
-    Position Moving(Direction direct) const {
-    switch (direct)
-    {
-    case UP: return Position(a, b-1);
-    case DOWN: return Position(a, b+1);
-    case LEFT: return Position(a-1, b);
-    case RIGHT: return Position(a+1, b);
+    Position(int x_ = 0, int y_ = 0) : x(x_), y(y_) {}
+
+    Position move(Direction direction) const {
+    	switch(direction) {
+    		case UP: return Position(x, y - 1);
+    		case DOWN: return Position(x, y + 1);
+    		case LEFT: return Position(x - 1, y);
+    		case RIGHT: return Position(x + 1, y);
+		}
     }
+
+    bool isInsideBox(int left, int top, int width, int height) const {
+        return x >= left && x < left+width && y >= top && y < top+height;
     }
-    bool isInsidebox (int left, int top, int width, int height)
-    {
-        return a >= left && a < left+width && b >= top && b < top+height;
-    }
+
     bool operator==(Position p) const {
-    return a=p.a && b=p.b;
+        return x == p.x && y == p.y;
     }
 };
-#endif // POSITION_H
 
+#endif // POSITION_H

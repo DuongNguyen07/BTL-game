@@ -5,3 +5,47 @@
 	<SDL.h>
 	<SDL_image.h>
 
+1680677867 source:c:\users\admin\onedrive\documents\github\btl-game\game.cpp
+	<vector>
+	<cassert>
+	<cstdlib>
+	<iostream>
+	"Game.h"
+
+1680677867 c:\users\admin\onedrive\documents\github\btl-game\game.h
+	"snake.h"
+	"position.h"
+
+1680677867 c:\users\admin\onedrive\documents\github\btl-game\snake.h
+	<queue>
+	<vector>
+	"position.h"
+
+1680677867 c:\users\admin\onedrive\documents\github\btl-game\position.h
+
+1680677867 source:c:\users\admin\onedrive\documents\github\btl-game\snake.cpp
+	"snake.h"
+	"Game.h"
+	<iostream>
+
+1680677867 source:c:\users\admin\onedrive\documents\github\btl-game\main.cpp
+	<iostream>
+	<SDL.h>
+	<cstdlib>
+	<ctime>
+	"function.h"
+	"Game.h"
+	"UI.h"
+	<cmath>
+	<chrono>
+
+1680677867 c:\users\admin\onedrive\documents\github\btl-game\function.h
+	<iostream>
+	<SDL.h>
+	<SDL_image.h>
+
+1680677948 c:\users\admin\onedrive\documents\github\btl-game\ui.h
+	<SDL.h>
+	<SDL_image.h>
+	"UI.h"
+

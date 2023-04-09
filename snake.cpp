@@ -1,11 +1,11 @@
-#include "Snake.h"
+#include "snake.h"
 #include "Game.h"
 #include <iostream>
 
 Snake::Snake(Game& _game, Position start)
     : head(new SnakeNode(start)), tail(head), game(_game), cherry(0)
 {
-    game.snakeMoveTo(start);    
+    game.snakeMoveTo(start);
 }
 
 Snake::~Snake()
@@ -38,11 +38,11 @@ void Snake::slideTo(Position newPosition)
 	}
 	else {
 		SnakeNode *oldTailNode = tail;
-		
+
 		//cut the old tail off the snake
 		tail = tail->next;
 		oldTailNode->next = nullptr;
-		
+
 		// move it to the head of the snake
 		oldTailNode->position = newPosition;
 		head->next = oldTailNode;
@@ -66,6 +66,6 @@ void Snake::move(Direction direction)
         growAtFront(newPosition);
     } else {
     	game.snakeLeave(tail->position);
-        slideTo(newPosition);        
+        slideTo(newPosition);
     }
 }

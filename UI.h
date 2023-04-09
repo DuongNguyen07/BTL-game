@@ -1,32 +1,37 @@
-#ifndef UI_H_
-#define UI_H_
+#ifndef UI__H_
+#define UI__H_
+
 #include <SDL.h>
 #include <SDL_image.h>
-#include <function.h>
+#include "UI.h"
 
 enum PictureID {
-PIC_CHERRY = 0, PIC_SNAKE_VERTICAL, PIC_SNAKE_HORIZONTAL, PIC_SNAKE_HEAD, PIC_SNAKE_COUNT
+    PIC_CHERRY = 0, PIC_SNAKE_VERTICAL,
+    PIC_SNAKE_HORIZONTAL, PIC_SNAKE_HEAD, PIC_COUNT
 };
 
 const int CELL_SIZE = 30;
 
 const SDL_Color BOARD_COLOR = {0, 0, 0};
 const SDL_Color LINE_COLOR = {128, 128, 128};
+
+
 class UI {
 public:
     const int SCREEN_WIDTH = 900;
     const int SCREEN_HEIGHT = 600;
-    const char* WINDOW_TITLE = "SNAKE GAME";
+    const char* WINDOW_TITLE = "Snake Game";
+
     const int BOARD_WIDTH;
     const int BOARD_HEIGHT;
+
     SDL_Window* window;
     SDL_Renderer* renderer;
+
     SDL_Texture* pictures[PIC_COUNT];
 
-    UI(int boardWidth, int boardHeight) :BOARD_WIDTH(boardWidth), BOARD_HEIGHT(boardHeight)
-    {
-        initSDL(window, renderer, WINDOW_TITLE, SCREEN_WIDTH, SCREEN_HEIGHT);
-        UI( int boardWidth, int boardHeight) :BOARD_WIDTH(boardWidth), BOARD_HEIGHT(boardHeight)
+
+    UI( int boardWidth, int boardHeight) :BOARD_WIDTH(boardWidth), BOARD_HEIGHT(boardHeight)
     {
         initSDL(window, renderer, WINDOW_TITLE, SCREEN_WIDTH, SCREEN_HEIGHT);
 
@@ -116,4 +121,5 @@ public:
 
     }
 };
-#endif //UI.h
+
+#endif
